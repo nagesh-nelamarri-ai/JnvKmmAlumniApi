@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy ASP.Net Core app to Azure Web App - app-web-cxlvhhwxe4jvm
+name: Build and deploy ASP.Net Core app to Azure Web App - backendlinux
 
 on:
   push:
@@ -51,15 +51,15 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_619FA6BF0BCC4046AD4D776022E255DA }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_C8C090B5447E4E35B6B552D33C6D579D }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_A2FE2AE8467F4FD0B1A94CE695A63804 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_E671A026E5E7435B8496AB6AD24421FD }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_CB8F7B1A493E4FAD8B7B7ADB3B11CF73 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_97BC1149FD0649BC9476C4EC8D1E8CA4 }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'app-web-cxlvhhwxe4jvm'
+          app-name: 'backendlinux'
           slot-name: 'Production'
           package: .
           
