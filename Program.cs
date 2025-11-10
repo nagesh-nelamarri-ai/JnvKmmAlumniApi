@@ -48,13 +48,26 @@ app.UseAuthorization();
 app.UseStaticFiles();
 
 // Serve ProfileImages from custom folder
-app.UseStaticFiles(new StaticFileOptions
-{
-    FileProvider = new PhysicalFileProvider(
-        Path.Combine(builder.Environment.ContentRootPath, "ProfileImages")),
-    RequestPath = "/ProfileImages"
-});
+// app.UseStaticFiles(new StaticFileOptions
+// {
+//     FileProvider = new PhysicalFileProvider(
+//         Path.Combine(builder.Environment.ContentRootPath, "ProfileImages")),
+//     RequestPath = "/ProfileImages"
+// });
 
+try
+{
+    app.UseStaticFiles(new StaticFileOptions
+    {
+        FileProvider = new PhysicalFileProvider(
+            Path.Combine(builder.Environment.ContentRootPath, "ProfileImages")),
+        RequestPath = "/ProfileImages"
+    });
+}
+catch (DirectoryNotFoundException ex)
+{
+    app.Logger.LogWarning("ProfileImages folder not found: " + ex.Message);
+}
 app.MapControllers();
 
 app.Run();

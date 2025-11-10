@@ -18,4 +18,10 @@
     <Folder Include="ProfileImages\" />
   </ItemGroup>
 
+<ItemGroup>
+  <Content Include="ProfileImages\**">
+    <CopyToPublishDirectory>Always</CopyToPublishDirectory>
+  </Content>
+</ItemGroup>
+
 </Project>
