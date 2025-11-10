@@ -1,41 +1,34 @@
 ﻿using JnvKmmAlumniApi.Data;
 using JnvKmmAlumniApi.Interfaces;
 using JnvKmmAlumniApi.Repositories;
-using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.FileProviders;
-using System.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add CORS policy
+// 🔓 Add open CORS policy
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAngularApp",
+    options.AddPolicy("AllowAll",
         policy =>
         {
-            policy.WithOrigins("http://localhost:4200") // your Angular app
+            policy.AllowAnyOrigin()
                   .AllowAnyHeader()
                   .AllowAnyMethod();
         });
 });
 
-// Add services to the container.
-
+// Add services to the container
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<DapperContext>(); // Dapper connection context
-
-// Add repository
+builder.Services.AddSingleton<DapperContext>();
 builder.Services.AddScoped<MemberRepository>();
-//builder.Services.AddScoped<EventsRepository>();
 builder.Services.AddTransient<IEventsRepository, EventsRepository>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -45,21 +38,22 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseRouting();
-app.UseCors("AllowAngularApp");
-//app.UseCors("CorsPolicy");
+
+// 🔐 Apply open CORS policy
+app.UseCors("AllowAll");
+
 app.UseAuthorization();
 
-// Enable static files middleware
-app.UseStaticFiles(); // Serves files from wwwroot by default
+// Serve static files from wwwroot
+app.UseStaticFiles();
 
-// If your ProfileImages folder is outside wwwroot, map it explicitly
+// Serve ProfileImages from custom folder
 app.UseStaticFiles(new StaticFileOptions
 {
     FileProvider = new PhysicalFileProvider(
         Path.Combine(builder.Environment.ContentRootPath, "ProfileImages")),
     RequestPath = "/ProfileImages"
 });
-
 
 app.MapControllers();
 
