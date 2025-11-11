@@ -12,16 +12,4 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Members\" />
-    <Folder Include="Models\" />
-    <Folder Include="ProfileImages\" />
-  </ItemGroup>
-
-<ItemGroup>
-  <Content Include="ProfileImages\**">
-    <CopyToPublishDirectory>Always</CopyToPublishDirectory>
-  </Content>
-</ItemGroup>
-
 </Project>

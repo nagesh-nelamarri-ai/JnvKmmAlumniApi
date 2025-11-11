@@ -22,7 +22,7 @@ namespace JnvKmmAlumniApi.Entities
         public string Email { get; set; } = string.Empty;
         public int YearFrom { get; set; }
         public int YearTo { get; set; }
-        public string Batch { get; set; } = string.Empty;
+        public int Batch { get; set; } = 0;
         public string Profession { get; set; } = string.Empty;
         public IFormFile ProfilePhoto { get; set; } = null!;
         public string? Comments { get; set; }

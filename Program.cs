@@ -17,6 +17,7 @@ builder.Services.AddCors(options =>
         });
 });
 
+
 // Add services to the container
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -41,6 +42,7 @@ app.UseRouting();
 
 // 🔐 Apply open CORS policy
 app.UseCors("AllowAll");
+//app.UseCors("AllowSpecificOrigin");
 
 app.UseAuthorization();
 
@@ -48,26 +50,20 @@ app.UseAuthorization();
 app.UseStaticFiles();
 
 // Serve ProfileImages from custom folder
-// app.UseStaticFiles(new StaticFileOptions
-// {
-//     FileProvider = new PhysicalFileProvider(
-//         Path.Combine(builder.Environment.ContentRootPath, "ProfileImages")),
-//     RequestPath = "/ProfileImages"
-// });
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(builder.Environment.ContentRootPath, "ProfileImages")),
+    RequestPath = "/ProfileImages"
+});
 
-try
+app.UseStaticFiles(new StaticFileOptions
 {
-    app.UseStaticFiles(new StaticFileOptions
-    {
-        FileProvider = new PhysicalFileProvider(
-            Path.Combine(builder.Environment.ContentRootPath, "ProfileImages")),
-        RequestPath = "/ProfileImages"
-    });
-}
-catch (DirectoryNotFoundException ex)
-{
-    app.Logger.LogWarning("ProfileImages folder not found: " + ex.Message);
-}
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(builder.Environment.ContentRootPath, "EventFiles")),
+    RequestPath = "/EventFiles"
+});
+
 app.MapControllers();
 
 app.Run();
