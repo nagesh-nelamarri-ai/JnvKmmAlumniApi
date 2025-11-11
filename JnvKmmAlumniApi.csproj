@@ -11,5 +11,9 @@
     <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
+  <ItemGroup>
+  <Content Include="EventFiles/**" CopyToOutputDirectory="Always" />
+<Content Include="ProfileImages/**" CopyToOutputDirectory="Always" />
+</ItemGroup>
 
 </Project>
